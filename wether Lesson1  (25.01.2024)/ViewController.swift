@@ -26,10 +26,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        
+        let icon = WeatherIconManager.Rain.image
+        let currentWeather = CurrentWeather.init(tempeture: -5.0, appearentTempeture: -10.0, icon: icon)
+        updateUIWith(currentWeather: currentWeather)
     }
 
-
+    func  updateUIWith(currentWeather: CurrentWeather) {
+        
+    }
 }
 
