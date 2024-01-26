@@ -41,7 +41,7 @@ enum WeatherIconManager: String {
     
 extension WeatherIconManager {
     var image: UIImage {
-        return UIImage(named: self.rawValue)! 
+        return UIImage(named: self.rawValue)!
     }
 }
     

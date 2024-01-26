@@ -13,3 +13,16 @@ struct CurrentWeather {
     let appearentTempeture: Double
     let icon: UIImage
 }
+
+
+extension CurrentWeather {
+    var tempetureString: String {
+        return "\(Int(tempeture))ºС"
+    }
+    
+    var appearentTempetureString: String {
+        return ("Ощущается как:  \(Int(appearentTempeture))ºС")
+    }
+    
+    
+}

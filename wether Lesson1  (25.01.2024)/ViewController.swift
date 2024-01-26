@@ -29,10 +29,26 @@ class ViewController: UIViewController {
         let icon = WeatherIconManager.Rain.image
         let currentWeather = CurrentWeather.init(tempeture: -5.0, appearentTempeture: -10.0, icon: icon)
         updateUIWith(currentWeather: currentWeather)
-    }
-
-    func  updateUIWith(currentWeather: CurrentWeather) {
         
+        //       // let urlString = "https://google.apimetrics.xyz/get"
+        //        let baseUrl = URL(string: "https://google.apimetrics.xyz/get")
+        //        let fullUrl = URL(string: "PycURL/7.45.2 libcurl/7.58.0 OpenSSL/1.1.1 zlib/1.2.11 libidn2/2.0.4 libpsl/0.19.1 (+libidn2/2.0.4) nghttp2/1.30.0 librtmp/2.3", relativeTo: baseUrl)
+        //
+        //        let sessionConfiguretion = URLSessionConfiguration.default
+        //        let session = URLSession(configuration: sessionConfiguretion)
+        //
+        //        let request = URLRequest(url: fullUrl!)
+        //        let dataTask = session.dataTask(with: fullUrl!) { (data, response, error) in
+        //        }
+        //        dataTask.resume()
+        //    }
+        
+        func  updateUIWith(currentWeather: CurrentWeather) {
+            
+            self.imageView.image = currentWeather.icon
+            self.tempetureLabel.text = currentWeather.tempetureString
+            self.feelsLikeLabel.text = currentWeather.appearentTempetureString
+        }
     }
+    
 }
-
