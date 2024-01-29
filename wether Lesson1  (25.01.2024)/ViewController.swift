@@ -22,26 +22,25 @@ class ViewController: UIViewController {
     @IBAction func refreshButtonTaped(_ sender: UIButton) {
     }
     
+    lazy var weatherManager = APIWeatherManager(apiKey: "2a6d8e376a69c1ae07d4a52dd0c2dfdc")
+    let coordinates = Coordinates(latitude: 55.801552, longitude: 37.765917)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let icon = WeatherIconManager.Rain.image
-        let currentWeather = CurrentWeather.init(tempeture: -5.0, apparentTemperature: -10.0, icon: icon)
-        updateUIWith(currentWeather: currentWeather)
-        
-        //       // let urlString = "https://google.apimetrics.xyz/get"
-        //        let baseUrl = URL(string: "https://google.apimetrics.xyz/get")
-        //        let fullUrl = URL(string: "PycURL/7.45.2 libcurl/7.58.0 OpenSSL/1.1.1 zlib/1.2.11 libidn2/2.0.4 libpsl/0.19.1 (+libidn2/2.0.4) nghttp2/1.30.0 librtmp/2.3", relativeTo: baseUrl)
-        //
-        //        let sessionConfiguretion = URLSessionConfiguration.default
-        //        let session = URLSession(configuration: sessionConfiguretion)
-        //
-        //        let request = URLRequest(url: fullUrl!)
-        //        let dataTask = session.dataTask(with: fullUrl!) { (data, response, error) in
-        //        }
-        //        dataTask.resume()
-        //    }
+        weatherManager.fetchCurrentWeatherWith(coordinates: coordinates) { (result) in
+            switch result {
+            case .Success(let currentWeather):
+                self.updateUIWith(currentWeather: currentWeather)
+            case .Failure(let error as NSError):
+                let alertController = UIAlertController(title: "Unable to get data", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+            default: break
+            }
+        }
+    }
         
         func  updateUIWith(currentWeather: CurrentWeather) {
             
@@ -51,4 +50,3 @@ class ViewController: UIViewController {
         }
     }
     
-}

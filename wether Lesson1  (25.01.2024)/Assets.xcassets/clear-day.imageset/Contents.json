@@ -1,18 +1,33 @@
 {
   "images" : [
     {
-      "filename" : "sun1.png",
+      "filename" : "clear-day.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "sun1 1.png",
+      "filename" : "clear-day@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "sun1 2.png",
+      "filename" : "clear-day@3x.png",
       "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "filename" : "clear-day 1.png",
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "clear-day@2x 1.png",
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "clear-day@3x 1.png",
+      "idiom" : "iphone",
       "scale" : "3x"
     }
   ],

@@ -34,6 +34,7 @@ enum ForcecastType: FinalURLPoint {
 
 
 final class APIWeatherManager: APIManager {
+
     let sessionConfiguration: URLSessionConfiguration
     lazy var session: URLSession = {
         return URLSession(configuration: self.sessionConfiguration)

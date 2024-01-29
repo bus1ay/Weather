@@ -29,7 +29,7 @@ protocol APIManager {
     var sessionConfiguration: URLSessionConfiguration { get }
     var session: URLSession { get }
     
-    func JSONTaskWith(request: URLRequest, completionHandler: JSONCompletionHendler) -> JSONTask
+    func JSONTaskWith(request: URLRequest, completionHandler: @escaping JSONCompletionHendler) -> JSONTask
     func fetch<T: JSONDecodable>(request: URLRequest, parse: @escaping ([String: AnyObject]) -> T?, completionHandler: @escaping (APIResult<T>) -> Void)
     
    
@@ -74,21 +74,23 @@ extension APIManager {
     }
     
     func fetch<T>(request: URLRequest, parse: @escaping ([String: AnyObject]) -> T?, completionHandler: @escaping (APIResult<T>) -> Void) {
-        let dataTask = JSONTaskWith(request: request) { (json, respons, error) in
-            guard let json = json else {
-                if let error = error {
+            let dataTask = JSONTaskWith(request: request) { (json, respons, error) in
+                DispatchQueue.main.async(execute: {
+                guard let json = json else {
+                    if let error = error {
+                        completionHandler(.Failure(error))
+                    }
+                    return
+                }
+                
+                if let value = parse(json) {
+                    completionHandler(.Success(value))
+                } else {
+                    let error = NSError(domain: WEANetworkingErrorDomain, code: 200, userInfo: nil)
                     completionHandler(.Failure(error))
                 }
-                return
-            }
-            
-            if let value = parse(json) {
-                completionHandler(.Success(value))
-            } else {
-               let error = NSError(domain: WEANetworkingErrorDomain, code: 200, userInfo: nil)
-                completionHandler(.Failure(error))
-            }
+            })
         }
-        dataTask.resume()
+            dataTask.resume()
+        }
     }
-}
