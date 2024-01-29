@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let icon = WeatherIconManager.Rain.image
-        let currentWeather = CurrentWeather.init(tempeture: -5.0, appearentTempeture: -10.0, icon: icon)
+        let currentWeather = CurrentWeather.init(tempeture: -5.0, apparentTemperature: -10.0, icon: icon)
         updateUIWith(currentWeather: currentWeather)
         
         //       // let urlString = "https://google.apimetrics.xyz/get"

@@ -10,6 +10,16 @@ import Foundation
 typealias JSONTask = URLSessionDataTask
 typealias JSONCompletionHendler = ([String: AnyObject]?, HTTPURLResponse?, Error?) -> Void
 
+protocol JSONDecodable {
+    init?(JSON: [String: AnyObject])
+}
+
+protocol FinalURLPoint {
+    var baseURL: URL { get }
+    var path: String { get }
+    var request: URLRequest { get }
+}
+
 enum APIResult<T> {
     case Success(T)
     case Failure(Error)
@@ -20,7 +30,7 @@ protocol APIManager {
     var session: URLSession { get }
     
     func JSONTaskWith(request: URLRequest, completionHandler: JSONCompletionHendler) -> JSONTask
-    func fetch<T>(request: URLRequest, parse: @escaping ([String: AnyObject]) -> T?, completionHandler: @escaping (APIResult<T>) -> Void)
+    func fetch<T: JSONDecodable>(request: URLRequest, parse: @escaping ([String: AnyObject]) -> T?, completionHandler: @escaping (APIResult<T>) -> Void)
     
    
 }

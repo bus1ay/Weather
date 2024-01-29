@@ -10,8 +10,24 @@ import UIKit
 
 struct CurrentWeather {
     let tempeture: Double
-    let appearentTempeture: Double
+    let apparentTemperature: Double
     let icon: UIImage
+}
+
+extension CurrentWeather: JSONDecodable {
+    init?(JSON: [String : AnyObject]) {
+        guard let tempeture = JSON["tempeture"] as? Double,
+              let apparentTemperature = JSON["apparentTemperature"] as? Double,
+              let iconString = JSON["icon"] as? String else {
+            return nil
+        }
+        
+        let icon = WeatherIconManager(rawValue: iconString).image
+        
+        self.tempeture = tempeture
+        self.apparentTemperature = apparentTemperature
+        self.icon = icon
+    }
 }
 
 
@@ -21,7 +37,7 @@ extension CurrentWeather {
     }
     
     var appearentTempetureString: String {
-        return ("Ощущается как:  \(Int(appearentTempeture))ºС")
+        return ("Ощущается как:  \(Int(apparentTemperature))ºС")
     }
     
     
